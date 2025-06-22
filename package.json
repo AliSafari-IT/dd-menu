@@ -1,0 +1,66 @@
+{
+  "name": "@asafarim/dd-menu",
+  "version": "1.2.1",
+  "description": "A minimal, elegant, and highly customizable dropdown menu React component. Perfect for navbar, sidebar, or any dropdown needs with beautiful theming and smooth animations.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/index.css": "./dist/index.css",
+    "./dist/dd-menu.css": "./dist/index.css",
+    "./css": "./dist/index.css"
+  },
+  "private": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist",
+    "prepare": "pnpm run build",
+    "view": "pnpm view @asafarim/dd-menu",
+    "version": "pnpm view -s version",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "test:unit": "echo \"No unit tests specified\" && exit 0",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "dropdown",
+    "menu",
+    "recursive",
+    "pure-css",
+    "typescript",
+    "theming",
+    "component"
+  ],
+  "author": "Alireza Safari <asafarim@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://www.npmjs.com/package/@asafarim/dd-menu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AliSafari-IT/dd-menu"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0 || >=18.0.0",
+    "react-dom": ">=17.0.0 || >=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.0.0"
+  },
+  "packageManager": "pnpm@10.12.1",
+  "sideEffects": [
+    "*.css"
+  ]
+}

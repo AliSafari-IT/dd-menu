@@ -1,0 +1,525 @@
+/* ===== DD-MENU: Minimal & Elegant Dropdown Component ===== */
+
+:root {
+  /* Base Colors - Ultra Minimal & Clean */
+  --dd-text: #344054;
+  --dd-text-muted: #667085;
+  --dd-text-light: #98a2b3;
+  --dd-bg: #ffffff;
+  --dd-bg-hover: #f9fafb;
+  --dd-bg-active: #f2f4f7;
+  --dd-border: #eaecf0;
+  --dd-border-light: #f2f4f7;
+  --dd-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --dd-shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --dd-shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
+  --dd-accent: #1570ef;
+  --dd-accent-hover: #1366d6;  
+  /* Spacing - More refined */
+  --dd-spacing-xs: 2px;
+  --dd-spacing-sm: 6px;
+  --dd-spacing-md: 8px;
+  --dd-spacing-lg: 12px;
+  --dd-spacing-xl: 16px;
+  --dd-spacing-2xl: 20px;
+  
+  /* Border Radius - More subtle */
+  --dd-radius-sm: 6px;
+  --dd-radius-md: 8px;
+  --dd-radius-lg: 12px;
+  
+  /* Typography - Refined scale */
+  --dd-font-size-xs: 12px;
+  --dd-font-size-sm: 13px;
+  --dd-font-size-md: 14px;
+  --dd-font-size-lg: 15px;
+  --dd-font-weight-normal: 400;
+  --dd-font-weight-medium: 500;
+  --dd-font-weight-semibold: 600;
+    /* Transitions - Smoother */
+  --dd-transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  --dd-transition-slow: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme - Refined dark mode */
+.dd-menu--dark {
+  --dd-text: #f9fafb;
+  --dd-text-muted: #98a2b3;
+  --dd-text-light: #667085;
+  --dd-bg: #1d2939;
+  --dd-bg-hover: #344054;
+  --dd-bg-active: #475467;
+  --dd-border: #344054;
+  --dd-border-light: #475467;
+  --dd-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  --dd-shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.12);
+  --dd-shadow-lg: 0 12px 16px -4px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.12);
+  --dd-accent: #528bff;
+  --dd-accent-hover: #2970ff;
+}
+
+/* Auto Theme Detection */
+@media (prefers-color-scheme: dark) {
+  .dd-menu--auto {
+    --dd-text: #f9fafb;
+    --dd-text-muted: #98a2b3;
+    --dd-text-light: #667085;
+    --dd-bg: #1d2939;
+    --dd-bg-hover: #344054;
+    --dd-bg-active: #475467;
+    --dd-border: #344054;
+    --dd-border-light: #475467;
+    --dd-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    --dd-shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.12);
+    --dd-shadow-lg: 0 12px 16px -4px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.12);
+    --dd-accent: #528bff;
+    --dd-accent-hover: #2970ff;
+  }
+}
+
+/* ===== BASE COMPONENT ===== */
+.dd-menu {
+  position: relative;
+  display: inline-block;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--dd-font-size-md);
+  color: var(--dd-text);
+  line-height: 1.5;
+}
+
+.dd-menu--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ===== TRIGGER BUTTON ===== */
+.dd-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dd-spacing-sm);
+  padding: var(--dd-spacing-md) var(--dd-spacing-lg);
+  background: var(--dd-bg);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius-md);
+  color: var(--dd-text);
+  font-size: inherit;
+  font-weight: var(--dd-font-weight-medium);
+  cursor: pointer;  transition: var(--dd-transition);
+  white-space: nowrap;
+  min-height: 36px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.dd-menu__trigger:hover:not(:disabled) {
+  background: var(--dd-bg-hover);
+  border-color: var(--dd-accent);
+  box-shadow: var(--dd-shadow);
+}
+
+.dd-menu__trigger:focus:not(:disabled) {
+  outline: none;
+  border-color: var(--dd-accent);
+  box-shadow: 0 0 0 3px rgba(21, 112, 239, 0.12);
+}
+
+.dd-menu__trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.dd-menu__trigger svg {
+  transition: var(--dd-transition);
+}
+
+.dd-menu--open .dd-menu__trigger svg {
+  transform: rotate(180deg);
+}
+
+.dd-menu__custom-trigger {
+  cursor: pointer;
+}
+
+/* ===== DROPDOWN CONTENT ===== */
+.dd-menu__content {
+  position: absolute;
+  z-index: 1000;
+  min-width: 220px;
+  background: var(--dd-bg);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius-lg);
+  box-shadow: var(--dd-shadow-lg);
+  padding: var(--dd-spacing-sm);
+  margin-top: var(--dd-spacing-sm);
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+  animation: dd-menu-fadeIn 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes dd-menu-fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Content Placement */
+.dd-menu__content--bottom,
+.dd-menu__content--bottom-start,
+.dd-menu__content--bottom-end {
+  top: 100%;
+}
+
+.dd-menu__content--top,
+.dd-menu__content--top-start,
+.dd-menu__content--top-end {
+  bottom: 100%;
+  margin-bottom: var(--dd-spacing-xs);
+  margin-top: 0;
+}
+
+.dd-menu__content--bottom-start,
+.dd-menu__content--top-start {
+  left: 0;
+}
+
+.dd-menu__content--bottom-end,
+.dd-menu__content--top-end {
+  right: 0;
+}
+
+.dd-menu__content--bottom,
+.dd-menu__content--top {
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.dd-menu__content--right {
+  left: 100%;
+  top: 0;
+  margin-left: var(--dd-spacing-xs);
+  margin-top: 0;
+}
+
+.dd-menu__content--left {
+  right: 100%;
+  top: 0;
+  margin-right: var(--dd-spacing-xs);
+  margin-top: 0;
+}
+
+/* ===== MENU LIST ===== */
+.dd-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dd-menu__item-wrapper {
+  position: relative;
+}
+
+/* ===== MENU ITEMS ===== */
+.dd-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--dd-spacing-md);
+  padding: var(--dd-spacing-md) var(--dd-spacing-lg);
+  border-radius: var(--dd-radius-sm);
+  cursor: pointer;
+  transition: var(--dd-transition);
+  font-weight: var(--dd-font-weight-normal);
+  user-select: none;
+  color: var(--dd-text);
+  min-height: 40px;
+}
+
+.dd-menu__item:hover:not(.dd-menu__item--disabled) {
+  background: var(--dd-bg-hover);
+  color: var(--dd-text);
+}
+
+.dd-menu__item:active:not(.dd-menu__item--disabled) {
+  background: var(--dd-bg-active);
+  transform: translateY(0.5px);
+}
+
+.dd-menu__item--active {
+  background: var(--dd-bg-active);
+  color: var(--dd-accent);
+  font-weight: var(--dd-font-weight-medium);
+}
+
+.dd-menu__item--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--dd-text-muted);
+}
+
+.dd-menu__item--has-children {
+  position: relative;
+}
+
+.dd-menu__item--nested {
+  padding-left: var(--dd-spacing-xl);
+}
+
+/* ===== ITEM ELEMENTS ===== */
+.dd-menu__item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.dd-menu__item-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dd-menu__item-link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.dd-menu__item-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dd-menu__item-arrow {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: var(--dd-transition);
+}
+
+.dd-menu__item--has-children:hover .dd-menu__item-arrow {
+  opacity: 1;
+}
+
+/* ===== SUBMENUS ===== */
+.dd-menu__submenu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  z-index: 1001;
+  min-width: 180px;
+  background: var(--dd-bg);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius-lg);
+  box-shadow: var(--dd-shadow-lg);
+  padding: var(--dd-spacing-sm);
+  margin-left: var(--dd-spacing-xs);
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  pointer-events: none; /* Prevent mouse events when hidden */
+}
+
+.dd-menu__submenu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto; /* Allow mouse events when visible */
+}
+
+.dd-menu__submenu .dd-menu__item {
+  padding: var(--dd-spacing-sm);
+}
+
+/* Navbar Variant - Perfect for top navigation */
+.dd-menu--navbar {
+  display: block;
+  position: relative;
+}
+
+.dd-menu--navbar .dd-menu__trigger {
+  background: transparent;
+  border: none;
+  border-radius: var(--dd-radius-sm);
+  padding: var(--dd-spacing-md) var(--dd-spacing-lg);
+  font-weight: var(--dd-font-weight-medium);
+  min-height: 40px;
+  color: var(--dd-text);
+}
+
+.dd-menu--navbar .dd-menu__trigger:hover {
+  background: var(--dd-bg-hover);
+  color: var(--dd-text);
+}
+
+.dd-menu--navbar .dd-menu__trigger:focus {
+  background: var(--dd-bg-hover);
+  box-shadow: none;
+}
+
+.dd-menu--navbar .dd-menu__content {
+  margin-top: var(--dd-spacing-md);
+  border-radius: var(--dd-radius-md);
+  min-width: 200px;
+}
+
+.dd-menu--navbar .dd-menu__item {
+  padding: var(--dd-spacing-md) var(--dd-spacing-lg);
+  border-radius: var(--dd-radius-sm);
+}
+
+/* Sidebar Variant - Perfect for vertical menus */
+.dd-menu--sidebar {
+  display: block;
+  width: 100%;
+}
+
+.dd-menu--sidebar .dd-menu__trigger {
+  width: 100%;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  border-radius: var(--dd-radius-sm);
+  text-align: left;
+  padding: var(--dd-spacing-md) var(--dd-spacing-lg);
+  font-weight: var(--dd-font-weight-medium);
+}
+
+.dd-menu--sidebar .dd-menu__trigger:hover {
+  background: var(--dd-bg-hover);
+}
+
+.dd-menu--sidebar .dd-menu__trigger:focus {
+  background: var(--dd-bg-hover);
+  box-shadow: none;
+}
+
+.dd-menu--sidebar .dd-menu__content {
+  position: static;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: var(--dd-spacing-xs) 0 0 0;
+  padding: 0;
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+.dd-menu--sidebar .dd-menu__item {
+  padding: var(--dd-spacing-md) var(--dd-spacing-2xl);
+  border-radius: var(--dd-radius-sm);
+  margin-bottom: 2px;
+}
+
+.dd-menu--sidebar .dd-menu__submenu {
+  position: static;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: var(--dd-spacing-xs) 0 0 var(--dd-spacing-2xl);
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  padding: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .dd-menu__content {
+    min-width: 100vw;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    border-radius: var(--dd-radius-lg) var(--dd-radius-lg) 0 0;
+    position: fixed;
+    bottom: 0;
+    top: auto !important;
+    margin: 0;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .dd-menu__item {
+    padding: var(--dd-spacing-lg);
+    font-size: var(--dd-font-size-lg);
+  }
+
+  .dd-menu__submenu {
+    position: static;
+    background: var(--dd-bg-hover);
+    border: none;
+    box-shadow: none;
+    margin: var(--dd-spacing-sm) 0 0 var(--dd-spacing-lg);
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+.dd-menu__item:focus-visible {
+  outline: 2px solid var(--dd-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dd-menu__content,
+  .dd-menu__submenu,
+  .dd-menu__trigger svg,
+  .dd-menu__item {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== HIGH CONTRAST ===== */
+@media (prefers-contrast: high) {
+  .dd-menu {
+    --dd-border: #000000;
+    --dd-shadow: 0 0 0 1px #000000;
+  }
+}
+
+/* Add to the end of your existing dd-menu.css file */
+
+/* Enhanced hover states */
+.dd-menu__item--hovering {
+  background: var(--dd-bg-hover);
+  color: var(--dd-text);
+}
+
+/* Improved submenu positioning with better hover zones */
+.dd-menu__submenu {
+  /* Add a small overlap to prevent gaps */
+  margin-left: calc(var(--dd-spacing-xs) - 2px);
+}
+
+/* Better submenu transitions */
+.dd-menu__submenu {
+  transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
+}
+
+/* Improved arrow rotation for sidebar */
+.dd-menu--sidebar .dd-menu__item-arrow svg {
+  transition: transform 0.2s ease;
+}
+
+/* Better focus states */
+.dd-menu__item:focus-visible {
+  outline: 2px solid var(--dd-accent);
+  outline-offset: -2px;
+  background: var(--dd-bg-hover);
+}
