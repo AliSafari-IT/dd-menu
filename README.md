@@ -4,7 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A powerful, customizable dropdown menu component for React with TypeScript. Features recursive nesting, multiple themes, custom triggers, and accessibility support.
+A powerful, customizable dropdown menu component for React with TypeScript. Features recursive nesting, multiple themes, custom triggers, and accessibility support. See a live demo at [asafarim.com](https://bibliography.asafarim.com/dd) for different use cases.
 
 ![DD Menu Showcase](./dist/dd-down.png)
 
