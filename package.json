@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/dd-menu",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A minimal, elegant, and highly customizable dropdown menu React component. Perfect for navbar, sidebar, or any dropdown needs with beautiful theming and smooth animations.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
