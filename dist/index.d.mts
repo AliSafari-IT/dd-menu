@@ -17,7 +17,7 @@ type DDMenuTheme = "light" | "dark" | "auto";
 type DDMenuPlacement = "bottom" | "bottom-start" | "bottom-end" | "top" | "top-start" | "top-end" | "right" | "left";
 
 type DDMenuVariant = "default" | "minimal" | "navbar" | "sidebar";
-type DDMenuSize = "sm" | "md" | "lg";
+type DDMenuSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 interface DDMenuProps {
     items: MenuItem[];
     theme?: "light" | "dark" | "auto";
@@ -31,7 +31,9 @@ interface DDMenuProps {
     closeOnClick?: boolean;
     disabled?: boolean;
     hoverDelay?: number;
+    onHoverChange?: (isHovering: boolean) => void;
+    onFontSizeChange?: (fontSize: DDMenuSize) => void;
 }
-declare const DDMenu: ({ items, theme, variant, size, className, style, trigger, placement, onItemClick, closeOnClick, disabled, hoverDelay, }: DDMenuProps) => react_jsx_runtime.JSX.Element;
+declare const DDMenu: ({ items, theme, variant, size, className, style, trigger, placement, onItemClick, closeOnClick, disabled, hoverDelay, onHoverChange, onFontSizeChange, }: DDMenuProps) => react_jsx_runtime.JSX.Element;
 
 export { DDMenu, DDMenu as DDMenuDefault, type DDMenuPlacement, type DDMenuSize, type DDMenuTheme, type DDMenuVariant, type MenuItem, DDMenu as default };

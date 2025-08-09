@@ -6,4 +6,4 @@ export { DDMenu as default } from "./components/DDMenu";
 export type { 
   DDMenuVariant, 
   DDMenuSize, 
-} from "./components/DDMenu";
+} from "./components/DDMenu"; 

@@ -41,8 +41,10 @@ var DDMenu = ({
   onItemClick,
   closeOnClick = true,
   disabled = false,
-  hoverDelay = 150
+  hoverDelay = 150,
   // Default 150ms delay
+  onHoverChange,
+  onFontSizeChange
 }) => {
   const [isOpen, setIsOpen] = (0, import_react.useState)(false);
   const [openSubmenus, setOpenSubmenus] = (0, import_react.useState)(/* @__PURE__ */ new Set());
@@ -52,6 +54,18 @@ var DDMenu = ({
   const customTriggerRef = (0, import_react.useRef)(null);
   const hoverTimeoutRef = (0, import_react.useRef)(null);
   const submenuTimeoutRef = (0, import_react.useRef)(/* @__PURE__ */ new Map());
+  const [isHovering, setIsHovering] = (0, import_react.useState)(false);
+  const [fontSize, setFontSize] = (0, import_react.useState)(size);
+  (0, import_react.useEffect)(() => {
+    if (onHoverChange) {
+      onHoverChange(isHovering);
+    }
+  }, [isHovering, onHoverChange]);
+  (0, import_react.useEffect)(() => {
+    if (onFontSizeChange) {
+      onFontSizeChange(fontSize);
+    }
+  }, [fontSize, onFontSizeChange]);
   (0, import_react.useEffect)(() => {
     const handleClickOutside = (event) => {
       const currentTrigger = buttonTriggerRef.current || customTriggerRef.current;
@@ -315,10 +329,10 @@ var DDMenu = ({
     "div",
     {
       className: `
-        dd-menu
-        dd-menu--${variant}
-        dd-menu--${size}
-        dd-menu--${theme}
+        dd-menu 
+        dd-menu--${variant} 
+        dd-menu--${size} 
+        dd-menu--${theme} 
         ${isOpen ? "dd-menu--open" : ""}
         ${disabled ? "dd-menu--disabled" : ""}
         ${className}

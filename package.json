@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/dd-menu",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A minimal, elegant, and highly customizable dropdown menu React component. Perfect for navbar, sidebar, or any dropdown needs with beautiful theming and smooth animations.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -14,6 +14,7 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./index.css": "./dist/index.css",
     "./dist/index.css": "./dist/index.css",
     "./dist/dd-menu.css": "./dist/index.css",
     "./css": "./dist/index.css"
@@ -21,17 +22,25 @@
   "private": false,
   "files": [
     "dist",
+    "demo",
+    "styles/dd-menu.css",
+    "styles/dd-menu.min.css",
     "README.md"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist",
+    "watch": "tsup src/index.ts --format cjs,esm --dts --out-dir dist --watch",
     "prepare": "pnpm run build",
     "view": "pnpm view @asafarim/dd-menu",
     "version": "pnpm view -s version",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "test:unit": "echo \"No unit tests specified\" && exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "pnpm --dir demo dev",
+    "demo:i": "pnpm --dir demo install",
+    "demo:build": "pnpm --dir demo build",
+    "demo:preview": "pnpm --dir demo preview"
   },
   "keywords": [
     "react",
@@ -45,11 +54,11 @@
   ],
   "author": "Alireza Safari <asafarim@gmail.com>",
   "license": "MIT",
-  "homepage": "https://www.npmjs.com/package/@asafarim/dd-menu",
   "repository": {
     "type": "git",
     "url": "https://github.com/AliSafari-IT/dd-menu"
   },
+  "homepage": "https://alisafari-it.github.io/dd-menu/",
   "peerDependencies": {
     "react": ">=17.0.0 || >=18.0.0",
     "react-dom": ">=17.0.0 || >=18.0.0"

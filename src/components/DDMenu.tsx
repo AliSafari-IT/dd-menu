@@ -3,7 +3,7 @@ import type { MenuItem } from "../types/menu.types";
 import "../styles/dd-menu.css";
 
 export type DDMenuVariant = "default" | "minimal" | "navbar" | "sidebar";
-export type DDMenuSize = "sm" | "md" | "lg";
+export type DDMenuSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
 interface DDMenuProps {
   items: MenuItem[];
@@ -26,6 +26,8 @@ interface DDMenuProps {
   closeOnClick?: boolean;
   disabled?: boolean;
   hoverDelay?: number; // New prop for hover delay
+  onHoverChange?: (isHovering: boolean) => void; // Event handler for hover state changes
+  onFontSizeChange?: (fontSize: DDMenuSize) => void; // Event handler for font size changes
 }
 
 const DDMenu = ({
@@ -41,6 +43,8 @@ const DDMenu = ({
   closeOnClick = true,
   disabled = false,
   hoverDelay = 150, // Default 150ms delay
+  onHoverChange,
+  onFontSizeChange,
 }: DDMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<Set<string>>(new Set());
@@ -50,6 +54,22 @@ const DDMenu = ({
   const customTriggerRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<number | null>(null);
   const submenuTimeoutRef = useRef<Map<string, number>>(new Map());
+  const [isHovering, setIsHovering] = useState(false);
+  const [fontSize, setFontSize] = useState(size);
+
+  // Call onHoverChange when isHovering state changes
+  useEffect(() => {
+    if (onHoverChange) {
+      onHoverChange(isHovering);
+    }
+  }, [isHovering, onHoverChange]);
+
+  // Call onFontSizeChange when fontSize state changes
+  useEffect(() => {
+    if (onFontSizeChange) {
+      onFontSizeChange(fontSize);
+    }
+  }, [fontSize, onFontSizeChange]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -381,10 +401,10 @@ const DDMenu = ({
   return (
     <div
       className={`
-        dd-menu
-        dd-menu--${variant}
-        dd-menu--${size}
-        dd-menu--${theme}
+        dd-menu 
+        dd-menu--${variant} 
+        dd-menu--${size} 
+        dd-menu--${theme} 
         ${isOpen ? "dd-menu--open" : ""}
         ${disabled ? "dd-menu--disabled" : ""}
         ${className}

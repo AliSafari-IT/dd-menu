@@ -13,8 +13,10 @@ var DDMenu = ({
   onItemClick,
   closeOnClick = true,
   disabled = false,
-  hoverDelay = 150
+  hoverDelay = 150,
   // Default 150ms delay
+  onHoverChange,
+  onFontSizeChange
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState(/* @__PURE__ */ new Set());
@@ -24,6 +26,18 @@ var DDMenu = ({
   const customTriggerRef = useRef(null);
   const hoverTimeoutRef = useRef(null);
   const submenuTimeoutRef = useRef(/* @__PURE__ */ new Map());
+  const [isHovering, setIsHovering] = useState(false);
+  const [fontSize, setFontSize] = useState(size);
+  useEffect(() => {
+    if (onHoverChange) {
+      onHoverChange(isHovering);
+    }
+  }, [isHovering, onHoverChange]);
+  useEffect(() => {
+    if (onFontSizeChange) {
+      onFontSizeChange(fontSize);
+    }
+  }, [fontSize, onFontSizeChange]);
   useEffect(() => {
     const handleClickOutside = (event) => {
       const currentTrigger = buttonTriggerRef.current || customTriggerRef.current;
@@ -287,10 +301,10 @@ var DDMenu = ({
     "div",
     {
       className: `
-        dd-menu
-        dd-menu--${variant}
-        dd-menu--${size}
-        dd-menu--${theme}
+        dd-menu 
+        dd-menu--${variant} 
+        dd-menu--${size} 
+        dd-menu--${theme} 
         ${isOpen ? "dd-menu--open" : ""}
         ${disabled ? "dd-menu--disabled" : ""}
         ${className}
