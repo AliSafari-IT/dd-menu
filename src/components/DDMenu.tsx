@@ -138,7 +138,11 @@ const DDMenu = ({
 
     // For sidebar variant, open immediately
     if (variant === "sidebar") {
-      setOpenSubmenus((prev) => new Set([...prev, id]));
+      setOpenSubmenus((prev) => {
+        const newSet = new Set(prev);
+        newSet.add(id);
+        return newSet;
+      });
       return;
     }
 

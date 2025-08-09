@@ -1,7 +1,8 @@
 {
   "name": "dd-menu-demo",
+  "description": "A demo for the @asafarim/dd-menu package",
   "private": true,
-  "version": "1.2.8",
+  "version": "1.2.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,14 +17,14 @@
     "@asafarim/shared": "^1.7.3",
     "kill-port": "^2.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "gh-pages": "^6.3.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.23",
-    "@vitejs/plugin-react-swc": "^3.7.0",
-    "typescript": "^5.4.5",
-    "vite": "^5.3.4"
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "gh-pages": "^5.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }

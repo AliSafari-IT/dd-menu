@@ -3,73 +3,61 @@
   "version": "1.2.8",
   "description": "A minimal, elegant, and highly customizable dropdown menu React component. Perfect for navbar, sidebar, or any dropdown needs with beautiful theming and smooth animations.",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "type": "module",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./index.css": "./dist/index.css",
-    "./dist/index.css": "./dist/index.css",
-    "./dist/dd-menu.css": "./dist/index.css",
-    "./css": "./dist/index.css"
-  },
-  "private": false,
   "files": [
     "dist",
     "demo",
-    "styles/dd-menu.css",
-    "styles/dd-menu.min.css",
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist",
-    "watch": "tsup src/index.ts --format cjs,esm --dts --out-dir dist --watch",
-    "prepare": "pnpm run build",
-    "view": "pnpm view @asafarim/dd-menu",
-    "version": "pnpm view -s version",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "test:unit": "echo \"No unit tests specified\" && exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "pnpm --dir demo dev",
-    "demo:i": "pnpm --dir demo install",
-    "demo:build": "pnpm --dir demo build",
-    "demo:preview": "pnpm --dir demo preview"
+    "build": "rollup -c",
+    "all": "pnpm i && pnpm run build",
+    "watch": "rollup -c -w",
+    "prepare": "npm run build",
+    "clean": "rm -rf dist",
+    "demo": "pnpm build && cd demo && pnpm run build && pnpm dev",
+    "predeploy": "pnpm build && cd demo && pnpm install && pnpm build",
+    "deploy": "gh-pages -d demo/dist"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "rollup": "^3.29.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AliSafari-IT/dd-menu.git"
   },
   "keywords": [
+    "asafarim",
     "react",
     "dropdown",
     "menu",
+    "dd-menu",
     "recursive",
-    "pure-css",
-    "typescript",
-    "theming",
-    "component"
+    "typescript"
   ],
-  "author": "Alireza Safari <asafarim@gmail.com>",
+  "author": "Ali Safari",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AliSafari-IT/dd-menu"
+  "homepage": "https://alisafari-it.github.io/dd-menu",
+  "bugs": {
+    "url": "https://github.com/AliSafari-IT/dd-menu/issues"
   },
-  "homepage": "https://alisafari-it.github.io/dd-menu/",
-  "peerDependencies": {
-    "react": ">=17.0.0 || >=18.0.0",
-    "react-dom": ">=17.0.0 || >=18.0.0"
+  "publishConfig": {
+    "access": "public"
   },
-  "devDependencies": {
-    "@types/react": "^18.2.0",
-    "tsup": "^7.2.0",
-    "typescript": "^5.0.0"
-  },
-  "packageManager": "pnpm@10.12.1",
   "sideEffects": [
     "*.css"
-  ]
+  ],
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./App.css";
-import "@asafarim/dd-menu/index.css";
+import "@asafarim/dd-menu/dist/index.css";
 import '@asafarim/shared/dist/styles.css';
 import '@asafarim/react-themes/styles.css';
 import { ThemeProvider } from "@asafarim/react-themes";
