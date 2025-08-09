@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import DDMenu, {
   type MenuItem,
-  type DDMenuVariant,
   type DDMenuSize,
 } from "@asafarim/dd-menu";
 import { ThemeToggle } from "@asafarim/react-themes";
@@ -61,7 +60,7 @@ const placements: Placement[] = [
 ];
 
 export default function App() {
-  const [theme, setTheme] = useState<Theme>("auto");
+  const [theme] = useState<Theme>("auto");
   const [size, setSize] = useState<DDMenuSize>("md");
   const [hoverDelay, setHoverDelay] = useState<number>(150);
   const [closeOnClick, setCloseOnClick] = useState<boolean>(true);
@@ -257,6 +256,7 @@ const items = [
               closeOnClick={closeOnClick}
               hoverDelay={hoverDelay}
             />
+            
           </div>
           <div className="spacer" />
           <details className="code-sample">
