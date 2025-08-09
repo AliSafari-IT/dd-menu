@@ -16,7 +16,8 @@
     "@asafarim/shared": "^1.7.3",
     "kill-port": "^2.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "gh-pages": "^6.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
