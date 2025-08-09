@@ -1,13 +1,14 @@
 {
   "name": "dd-menu-demo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.2.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "watch": "vite build --watch",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "pnpm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@asafarim/dd-menu": "link:../",
@@ -15,8 +16,7 @@
     "@asafarim/shared": "^1.7.3",
     "kill-port": "^2.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.26.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
