@@ -81,7 +81,10 @@ export default function App() {
   return (
     <div className="container">
       <div className="intro-section">
-        <h1 className="main-title">@asafarim/dd-menu</h1>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+          <h1 className="main-title">Package @asafarim/dd-menu </h1>
+          <TT />
+        </div>
         <p className="subtitle">
           A minimal, elegant, and highly customizable dropdown menu React
           component
@@ -123,34 +126,7 @@ export default function App() {
         <div className="title">Interactive Demo & Tutorial</div>
         <div className="controls">
           <div className="control">
-            <ThemeToggle
-              size={
-                size === "xs"
-                  ? "sm"
-                  : size === "2xl"
-                  ? "lg"
-                  : size === "xl"
-                  ? "lg"
-                  : size
-              }
-              key={theme}
-              showLabels={true}
-              className="dd-menu--theme-toggle"
-              style={{
-                fontSize:
-                  size === "xs"
-                    ? "12px"
-                    : size === "sm"
-                    ? "14px"
-                    : size === "md"
-                    ? "16px"
-                    : size === "lg"
-                    ? "18px"
-                    : size === "xl"
-                    ? "20px"
-                    : "22px",
-              }}
-            />
+            <TT />
           </div>
           <div className="control">
             <label className="note">Size</label>
@@ -637,4 +613,37 @@ import '@asafarim/dd-menu/dist/index.css';`}</code>
       </div>
     </div>
   );
+
+  function TT() {
+    return (
+      <ThemeToggle
+        size={
+          size === "xs"
+            ? "sm"
+            : size === "2xl"
+            ? "lg"
+            : size === "xl"
+            ? "lg"
+            : size
+        }
+        key={theme}
+        showLabels={true}
+        className="dd-menu--theme-toggle"
+        style={{
+          fontSize:
+            size === "xs"
+              ? "12px"
+              : size === "sm"
+              ? "14px"
+              : size === "md"
+              ? "16px"
+              : size === "lg"
+              ? "18px"
+              : size === "xl"
+              ? "20px"
+              : "22px",
+        }}
+      />
+    );
+  }
 }
