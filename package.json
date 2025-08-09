@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/dd-menu",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A minimal, elegant, and highly customizable dropdown menu React component. Perfect for navbar, sidebar, or any dropdown needs with beautiful theming and smooth animations.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -14,6 +14,7 @@
   },
   "files": [
     "dist",
+    "demo",
     "README.md",
     "LICENSE"
   ],
@@ -45,7 +46,7 @@
     "type": "git",
     "url": "https://github.com/AliSafari-IT/dd-menu.git"
   },
-  "homepage": "https://AliSafari-IT.github.io/dd-menu/",
+  "homepage": "https://alisafari-it.github.io/dd-menu/",
   "bugs": {
     "url": "https://github.com/AliSafari-IT/dd-menu/issues"
   },
