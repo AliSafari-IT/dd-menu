@@ -52,10 +52,10 @@ const DDMenu = ({
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonTriggerRef = useRef<HTMLButtonElement>(null);
   const customTriggerRef = useRef<HTMLDivElement>(null);
-  const hoverTimeoutRef = useRef<number | null>(null);
-  const submenuTimeoutRef = useRef<Map<string, number>>(new Map());
-  const [isHovering, setIsHovering] = useState(false);
-  const [fontSize, setFontSize] = useState(size);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const submenuTimeoutRef = useRef<Map<string, NodeJS.Timeout>>(new Map());
+  const [isHovering] = useState(false);
+  const [fontSize] = useState(size);
 
   // Call onHoverChange when isHovering state changes
   useEffect(() => {
@@ -99,6 +99,9 @@ const DDMenu = ({
         clearAllTimeouts();
       };
     }
+    
+    // Return empty cleanup function for when isOpen is false
+    return () => {};
   }, [isOpen]);
 
   // Clear all timeouts

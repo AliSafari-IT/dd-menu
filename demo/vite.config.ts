@@ -8,12 +8,13 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     base: '/dd-menu/',  // Match the repository name for GitHub Pages
     server: {
-      port: 3009,
+      port: 3006,
       open: true
     },
     build: {
       outDir: 'dist',
-      sourcemap: true
-    }
+      sourcemap: true,
+      assetsDir: 'assets'
+    },
   };
 })
