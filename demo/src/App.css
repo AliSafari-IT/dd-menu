@@ -377,3 +377,304 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ===== TUTORIAL ENHANCEMENTS ===== */
+.code-sample {
+  margin-top: var(--app-spacing-md);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-md);
+  background: var(--app-bg-secondary);
+  overflow: hidden;
+}
+
+.code-sample summary {
+  padding: var(--app-spacing-md);
+  background: var(--app-bg-secondary);
+  border-bottom: 1px solid var(--app-border);
+  cursor: pointer;
+  font-weight: var(--app-font-weight-medium);
+  font-size: var(--app-font-size-sm);
+  color: var(--app-text);
+  user-select: none;
+  transition: var(--app-transition-fast);
+}
+
+.code-sample summary:hover {
+  background: var(--app-bg);
+}
+
+.code-sample[open] summary {
+  border-bottom: 1px solid var(--app-border);
+}
+
+.code-sample pre {
+  margin: 0;
+  padding: var(--app-spacing-lg);
+  background: var(--app-bg);
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--app-font-size-xs);
+  line-height: 1.6;
+  color: var(--app-text);
+}
+
+.code-sample code {
+  color: var(--app-text);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-family: inherit;
+}
+
+/* Enhanced card styling for tutorial */
+.card {
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  padding: var(--app-spacing-lg);
+  background: var(--app-bg);
+  box-shadow: var(--app-shadow);
+  transition: var(--app-transition);
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: var(--app-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  margin: 0 0 var(--app-spacing-md) 0;
+  font-size: var(--app-font-size-lg);
+  font-weight: var(--app-font-weight-semibold);
+  color: var(--app-text);
+  display: flex;
+  align-items: center;
+  gap: var(--app-spacing-sm);
+}
+
+.card p.note {
+  margin: 0 0 var(--app-spacing-lg) 0;
+  color: var(--app-text-muted);
+  font-size: var(--app-font-size-sm);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Tutorial grid improvements */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1201px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Code syntax highlighting for better readability */
+.code-sample pre code {
+  display: block;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+/* Improved spacing for tutorial elements */
+.card .spacer {
+  height: var(--app-spacing-lg);
+}
+
+.card .note:not(p) {
+  color: var(--app-text-muted);
+  font-size: var(--app-font-size-xs);
+  font-weight: var(--app-font-weight-medium);
+  margin-top: var(--app-spacing-sm);
+}
+
+/* ===== INTRODUCTION SECTION ===== */
+.intro-section {
+  text-align: center;
+  padding: var(--app-spacing-2xl) 0;
+  margin-bottom: var(--app-spacing-xl);
+  background: linear-gradient(135deg, var(--app-bg-secondary) 0%, var(--app-bg) 100%);
+  border-radius: var(--app-radius-xl);
+  border: 1px solid var(--app-border);
+}
+
+.main-title {
+  font-size: var(--app-font-size-2xl);
+  font-weight: var(--app-font-weight-bold);
+  color: var(--app-text);
+  margin: 0 0 var(--app-spacing-md) 0;
+  background: linear-gradient(135deg, var(--app-accent), var(--app-accent-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: var(--app-font-size-lg);
+  color: var(--app-text-muted);
+  margin: 0 0 var(--app-spacing-2xl) 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--app-spacing-lg);
+  margin-bottom: var(--app-spacing-2xl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--app-spacing-md);
+  padding: var(--app-spacing-md);
+  background: var(--app-bg);
+  border-radius: var(--app-radius-md);
+  border: 1px solid var(--app-border-light);
+  font-size: var(--app-font-size-sm);
+  color: var(--app-text);
+}
+
+.feature-icon {
+  font-size: var(--app-font-size-lg);
+  flex-shrink: 0;
+}
+
+.quick-install {
+  background: var(--app-bg);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  padding: var(--app-spacing-xl);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.quick-install h3 {
+  margin: 0 0 var(--app-spacing-lg) 0;
+  font-size: var(--app-font-size-lg);
+  color: var(--app-text);
+}
+
+.install-commands {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-spacing-md);
+  align-items: center;
+}
+
+.install-commands code {
+  background: var(--app-bg-secondary);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-sm);
+  padding: var(--app-spacing-md) var(--app-spacing-lg);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--app-font-size-sm);
+  color: var(--app-text);
+  min-width: 280px;
+  text-align: center;
+}
+
+.install-commands .or {
+  color: var(--app-text-muted);
+  font-size: var(--app-font-size-sm);
+  font-style: italic;
+}
+
+/* ===== GETTING STARTED SECTION ===== */
+.card.full-width {
+  grid-column: 1 / -1;
+}
+
+.getting-started {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--app-spacing-xl);
+  margin-top: var(--app-spacing-lg);
+}
+
+.step {
+  display: flex;
+  gap: var(--app-spacing-lg);
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--app-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--app-font-weight-bold);
+  font-size: var(--app-font-size-lg);
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h4 {
+  margin: 0 0 var(--app-spacing-sm) 0;
+  font-size: var(--app-font-size-md);
+  font-weight: var(--app-font-weight-semibold);
+  color: var(--app-text);
+}
+
+.step-content code {
+  background: var(--app-bg-secondary);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-sm);
+  padding: var(--app-spacing-sm) var(--app-spacing-md);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--app-font-size-xs);
+  color: var(--app-text);
+  display: inline-block;
+}
+
+.step-content pre {
+  background: var(--app-bg-secondary);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-sm);
+  padding: var(--app-spacing-md);
+  margin: var(--app-spacing-sm) 0 0 0;
+  overflow-x: auto;
+}
+
+.step-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: block;
+}
+
+/* Responsive adjustments for intro */
+@media (max-width: 768px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+  
+  .install-commands {
+    flex-direction: column;
+  }
+  
+  .getting-started {
+    grid-template-columns: 1fr;
+  }
+  
+  .step {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
