@@ -149,12 +149,11 @@ var DDMenu = ({
     submenuTimeoutRef.current.set(id, timeout);
   }, [variant, hoverDelay]);
   const handleItemClick = (0, import_react.useCallback)((item, event) => {
-    var _a;
     if (item.disabled) {
       event.preventDefault();
       return;
     }
-    if ((_a = item.children) == null ? void 0 : _a.length) {
+    if (item.children?.length) {
       event.preventDefault();
       toggleSubmenu(item.id);
       return;
@@ -173,18 +172,16 @@ var DDMenu = ({
     }
   }, [onItemClick, closeOnClick, toggleSubmenu, clearAllTimeouts]);
   const handleItemMouseEnter = (0, import_react.useCallback)((item) => {
-    var _a;
     setHoveringItem(item.id);
-    if (((_a = item.children) == null ? void 0 : _a.length) && variant !== "sidebar") {
+    if (item.children?.length && variant !== "sidebar") {
       openSubmenuWithDelay(item.id);
     }
   }, [variant, openSubmenuWithDelay]);
   const handleItemMouseLeave = (0, import_react.useCallback)((item) => {
-    var _a;
     if (hoveringItem === item.id) {
       setHoveringItem(null);
     }
-    if (((_a = item.children) == null ? void 0 : _a.length) && variant !== "sidebar") {
+    if (item.children?.length && variant !== "sidebar") {
       closeSubmenuWithDelay(item.id);
     }
   }, [hoveringItem, variant, closeSubmenuWithDelay]);
