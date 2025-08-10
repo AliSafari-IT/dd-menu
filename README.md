@@ -6,7 +6,7 @@
 
 A powerful, customizable dropdown menu component for React with TypeScript. Features recursive nesting, multiple themes, custom triggers, and accessibility support. See a live demo at [asafarim.com](https://bibliography.asafarim.com/dd) for different use cases.
 
-![DD Menu Showcase](./dist/dd-down.png)
+![DD Menu Showcase](/public/dd-down.png)
 
 ## Features
 
