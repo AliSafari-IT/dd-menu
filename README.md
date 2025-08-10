@@ -380,4 +380,4 @@ The dropdown menu is built with accessibility in mind:
 
 ## License
 
-MIT © [Ali Safari](https://github.com/AliSafari-IT)
+MIT © [Ali Safari](https://github.com/alisafari-it/dd-menu)
