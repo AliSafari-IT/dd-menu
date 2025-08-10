@@ -2,7 +2,7 @@
   "name": "dd-menu-demo",
   "description": "A demo for the @asafarim/dd-menu package",
   "private": true,
-  "version": "1.3.0",
+  "version": "1.4.0",
   "type": "module",
   "scripts": {
     "dev": "kill-port 3006 && vite",
