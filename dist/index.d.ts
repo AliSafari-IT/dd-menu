@@ -36,4 +36,30 @@ interface DDMenuProps {
 }
 declare const DDMenu: ({ items, theme, variant, size, className, style, trigger, placement, onItemClick, closeOnClick, disabled, hoverDelay, onHoverChange, onFontSizeChange, }: DDMenuProps) => react_jsx_runtime.JSX.Element;
 
-export { DDMenu, DDMenu as DDMenuDefault, type DDMenuPlacement, type DDMenuSize, type DDMenuTheme, type DDMenuVariant, type MenuItem, DDMenu as default };
+type DDSearchableVariant = "default" | "minimal" | "outlined" | "filled";
+type DDSearchableSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+interface DDSearchableProps {
+    items: MenuItem[];
+    theme?: "light" | "dark" | "auto";
+    variant?: DDSearchableVariant;
+    size?: DDSearchableSize;
+    className?: string;
+    style?: React.CSSProperties;
+    placeholder?: string;
+    onItemSelect?: (item: MenuItem) => void;
+    onSearchChange?: (searchTerm: string) => void;
+    disabled?: boolean;
+    clearable?: boolean;
+    maxHeight?: number;
+    noResultsText?: string;
+    searchKeys?: (keyof MenuItem)[];
+    caseSensitive?: boolean;
+    minSearchLength?: number;
+    debounceMs?: number;
+    selectedItem?: MenuItem | null;
+    allowCustomValue?: boolean;
+    onCustomValue?: (value: string) => void;
+}
+declare const DDSearchable: ({ items, theme, variant, size, className, style, placeholder, onItemSelect, onSearchChange, disabled, clearable, maxHeight, noResultsText, searchKeys, caseSensitive, minSearchLength, debounceMs, selectedItem, allowCustomValue, onCustomValue, }: DDSearchableProps) => react_jsx_runtime.JSX.Element;
+
+export { DDMenu, DDMenu as DDMenuDefault, type DDMenuPlacement, type DDMenuSize, type DDMenuTheme, type DDMenuVariant, DDSearchable, DDSearchable as DDSearchableDefault, type DDSearchableSize, type DDSearchableVariant, type MenuItem, DDMenu as default };

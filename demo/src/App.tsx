@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from "react";
 import DDMenu, {
+  DDSearchable,
   type MenuItem,
   type DDMenuSize,
+  type DDSearchableSize,
 } from "@asafarim/dd-menu";
 import { ThemeToggle } from "@asafarim/react-themes";
 import { PackageLinks } from "@asafarim/shared";
@@ -64,6 +66,7 @@ export default function App() {
   const [size, setSize] = useState<DDMenuSize>("md");
   const [hoverDelay, setHoverDelay] = useState<number>(150);
   const [closeOnClick, setCloseOnClick] = useState<boolean>(true);
+  const [selectedSearchItem, setSelectedSearchItem] = useState<MenuItem | null>(null);
 
   const baseItems = useMemo(() => makeNestedItems(), []);
   const onItemClick = (item: MenuItem) => alert(`Clicked: ${item.label}`);
@@ -564,23 +567,167 @@ const handleFilterClick = (item) => {
           </details>
         </div>
 
-        <div className="card full-width">
+        <div className="card">
+          <h3>3. Custom Search Configuration</h3>
+          <p className="note">
+            Configure search behavior: case sensitivity, minimum search length, 
+            debounce timing, and custom search keys.
+          </p>
+          <DDSearchable
+            items={baseItems}
+            placeholder="Case-sensitive search (min 2 chars)"
+            caseSensitive={true}
+            minSearchLength={2}
+            debounceMs={500}
+            searchKeys={["label", "id"]}
+            onSearchChange={(term: string) => console.log("Search term:", term)}
+            theme={theme}
+            size={size as DDSearchableSize}
+          />
+          <div className="spacer" />
+          <details className="code-sample">
+            <summary>📝 Usage Code</summary>
+            <pre>
+              <code>{`<DDSearchable
+  items={items}
+  caseSensitive={true}
+  minSearchLength={2}
+  debounceMs={500}
+  searchKeys={["label", "id"]}
+  onSearchChange={(term: string) => console.log("Search:", term)}
+/>`}</code>
+            </pre>
+          </details>
+        </div>
+
+        <div className="card">
+          <h3>4. Allow Custom Values</h3>
+          <p className="note">
+            Enable users to add custom values that don't exist in the predefined list.
+          </p>
+          <DDSearchable
+            items={baseItems.slice(0, 3)}
+            placeholder="Type anything, even custom values"
+            allowCustomValue={true}
+            onCustomValue={(value: string) => alert(`Custom value added: "${value}"`)}
+            onItemSelect={(item: MenuItem | null) => alert(`Selected: ${item?.label}`)}
+            theme={theme}
+            size={size as DDSearchableSize}
+          />
+          <div className="spacer" />
+          <details className="code-sample">
+            <summary>📝 Usage Code</summary>
+            <pre>
+              <code>{`<DDSearchable
+  items={items}
+  allowCustomValue={true}
+  onCustomValue={(value) => {
+    // Handle custom value
+    console.log('Custom value:', value);
+    // You could add it to your items list
+  }}
+  placeholder="Type anything..."
+/>`}</code>
+            </pre>
+          </details>
+        </div>
+
+        <div className="card">
+          <h3>5. Controlled Component</h3>
+          <p className="note">
+            Control the selected item externally and clear the selection.
+          </p>
+          <div style={{ marginBottom: "1rem" }}>
+            <button 
+              onClick={() => setSelectedSearchItem(baseItems[0])}
+              style={{ marginRight: "0.5rem" }}
+            >
+              Select "Home"
+            </button>
+            <button onClick={() => setSelectedSearchItem(null)}>
+              Clear Selection
+            </button>
+          </div>
+          <DDSearchable
+            items={baseItems}
+            selectedItem={selectedSearchItem}
+            placeholder="Controlled searchable dropdown"
+            onItemSelect={setSelectedSearchItem}
+            clearable={true}
+            theme={theme}
+            size={size as DDSearchableSize}
+          />
+          <div className="spacer" />
+          <details className="code-sample">
+            <summary>📝 Usage Code</summary>
+            <pre>
+              <code>{`const [selectedItem, setSelectedItem] = useState(null);
+
+<DDSearchable
+  items={items}
+  selectedItem={selectedItem}
+  onItemSelect={setSelectedItem}
+  clearable={true}
+/>`}</code>
+            </pre>
+          </details>
+        </div>
+
+        <div className="card">
+          <h3>6. Nested Items Support</h3>
+          <p className="note">
+            Search through nested menu structures with hierarchical display.
+          </p>
+          <DDSearchable
+            items={baseItems}
+            placeholder="Search nested items..."
+            maxHeight={250}
+            noResultsText="No matching items found"
+            theme={theme}
+            size={size as DDSearchableSize}
+          />
+          <div className="spacer" />
+          <details className="code-sample">
+            <summary>📝 Usage Code</summary>
+            <pre>
+              <code>{`const nestedItems = [
+  {
+    id: "products",
+    label: "Products",
+    children: [
+      { id: "electronics", label: "Electronics" },
+      { id: "clothing", label: "Clothing" }
+    ]
+  }
+];
+
+<DDSearchable
+  items={nestedItems}
+  maxHeight={250}
+  noResultsText="No matches found"
+/>`}</code>
+            </pre>
+          </details>
+        </div>
+
+        <div className="card">
           <h3>🚀 Getting Started</h3>
           <div className="getting-started">
             <div className="step">
               <div className="step-number">1</div>
               <div className="step-content">
                 <h4>Install the package</h4>
-                <code>npm install @asafarim/dd-menu</code>
+                <pre>
+                  <code>npm install @asafarim/dd-menu</code>
+                </pre>
               </div>
             </div>
             <div className="step">
               <div className="step-number">2</div>
               <div className="step-content">
-                <h4>Import the component and styles</h4>
+                <h4>Import the components</h4>
                 <pre>
-                  <code>{`import DDMenu from '@asafarim/dd-menu';
-import '@asafarim/dd-menu/dist/index.css';`}</code>
+                  <code>{`import DDMenu, { DDSearchable } from "@asafarim/dd-menu";`}</code>
                 </pre>
               </div>
             </div>
@@ -590,8 +737,8 @@ import '@asafarim/dd-menu/dist/index.css';`}</code>
                 <h4>Define your menu items</h4>
                 <pre>
                   <code>{`const items = [
-  { id: 'home', label: 'Home', icon: '🏠' },
-  { id: 'about', label: 'About', icon: 'ℹ️' }
+  { id: "home", label: "Home", icon: "🏠" },
+  { id: "about", label: "About", icon: "ℹ️" }
 ];`}</code>
                 </pre>
               </div>
@@ -599,11 +746,16 @@ import '@asafarim/dd-menu/dist/index.css';`}</code>
             <div className="step">
               <div className="step-number">4</div>
               <div className="step-content">
-                <h4>Use the component</h4>
+                <h4>Use the components</h4>
                 <pre>
                   <code>{`<DDMenu
   items={items}
   onItemClick={(item) => console.log(item)}
+/>
+
+<DDSearchable
+  items={items}
+  onItemSelect={(item) => console.log(item)}
 />`}</code>
                 </pre>
               </div>

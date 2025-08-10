@@ -57,6 +57,7 @@ const DDMenu = ({
   const [isHovering] = useState(false);
   const [fontSize] = useState(size);
 
+
   // Call onHoverChange when isHovering state changes
   useEffect(() => {
     if (onHoverChange) {
@@ -417,7 +418,6 @@ const DDMenu = ({
         ${className}
       `.trim()}
       style={style}
-      data-theme={theme}
     >
       {trigger ? (
         <div

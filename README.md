@@ -4,19 +4,30 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A powerful, customizable dropdown menu component for React with TypeScript. Features recursive nesting, multiple themes, custom triggers, and accessibility support. See a live demo at [asafarim.com](https://bibliography.asafarim.com/dd) for different use cases.
+A powerful, customizable dropdown menu and searchable dropdown component library for React with TypeScript. Features recursive nesting, multiple themes, custom triggers, keyboard navigation, and accessibility support. See a live demo at [alisafari-it.github.io](https://alisafari-it.github.io/dd-menu/) for different use cases.
 
 ![DD Menu Showcase](/public/dd-down.png)
+
+## Components
+
+### DDMenu - Dropdown Menu
+
+A flexible dropdown menu component with support for nested items, custom triggers, and multiple variants.
+
+### DDSearchable - Searchable Dropdown
+
+A powerful searchable dropdown component with filtering, keyboard navigation, and customizable search behavior.
 
 ## Features
 
 - 🔄 **Recursive Nesting**: Create unlimited nested dropdown menus
-- 🎨 **Multiple Variants**: Choose from navbar, minimal, and default styles
+- 🔍 **Searchable Dropdown**: Filter items with real-time search and keyboard navigation
+- 🎨 **Multiple Variants**: Choose from default, minimal, outlined, filled, navbar, and sidebar styles
 - 🌓 **Theme Support**: Built-in light, dark, and auto themes
 - 📱 **Responsive**: Works perfectly on all device sizes
-- ♿ **Accessible**: Keyboard navigation and ARIA support
-- 🔧 **Highly Customizable**: Custom triggers, icons, and styling options
-- 🔍 **Searchable Option**: Case-insensitive search to filter dropdown items
+- ♿ **Accessible**: Full keyboard navigation and ARIA support
+- 🔧 **Highly Customizable**: Custom triggers, icons, styling, and search configuration
+- ⚡ **Performance**: Debounced search, virtual scrolling support, and optimized rendering
 - 🧩 **Zero Dependencies**: Pure React and CSS implementation
 
 ## Installation
@@ -32,11 +43,10 @@ yarn add @asafarim/dd-menu
 pnpm add @asafarim/dd-menu
 ```
 
-## Basic Usage
+## Quick Start
 
 ```tsx
-import DDMenu, { MenuItem } from "@asafarim/dd-menu";
-import "@asafarim/dd-menu/dist/index.css";
+import DDMenu, { DDSearchable, MenuItem } from "@asafarim/dd-menu";
 
 const App = () => {
   const menuItems: MenuItem[] = [
@@ -54,23 +64,169 @@ const App = () => {
   ];
 
   return (
-    <DDMenu 
-      items={menuItems} 
-      theme="auto" 
-      variant="default" 
-      size="md" 
-      placement="bottom-start"
-      closeOnClick={true}
-    />
+    <div>
+      {/* Dropdown Menu */}
+      <DDMenu 
+        items={menuItems} 
+        theme="auto" 
+        variant="default" 
+        size="md" 
+        placement="bottom-start"
+        closeOnClick={true}
+        onItemClick={(item) => console.log('Clicked:', item)}
+      />
+
+      {/* Searchable Dropdown */}
+      <DDSearchable
+        items={menuItems}
+        placeholder="Search items..."
+        onItemSelect={(item) => console.log('Selected:', item)}
+        theme="auto"
+        size="md"
+      />
+    </div>
   );
 };
+```
+
+## DDMenu Usage
+
+### Basic Dropdown Menu
+
+```tsx
+<DDMenu
+  items={menuItems}
+  variant="default"
+  onItemClick={(item) => console.log(item)}
+/>
+```
+
+### Custom Trigger
+
+```tsx
+const customTrigger = (
+  <button className="my-button">
+    Action Menu
+  </button>
+);
+
+<DDMenu
+  items={menuItems}
+  variant="minimal"
+  trigger={customTrigger}
+  onItemClick={(item) => console.log(item)}
+/>
+```
+
+### Navbar Profile Menu
+
+```tsx
+const profileTrigger = (
+  <div className="profile-trigger">
+    <div className="avatar">JD</div>
+    <span>John Doe</span>
+  </div>
+);
+
+<DDMenu
+  items={profileMenuItems}
+  variant="navbar"
+  trigger={profileTrigger}
+  placement="bottom-end"
+  onItemClick={handleProfileAction}
+/>
+```
+
+### Sidebar Navigation
+
+```tsx
+const sidebarItems = [
+  { id: "dashboard", label: "Dashboard", icon: "📊" },
+  {
+    id: "products",
+    label: "Products",
+    icon: "📦",
+    children: [
+      { id: "list", label: "Product List" },
+      { id: "add", label: "Add Product" }
+    ]
+  }
+];
+
+<DDMenu
+  items={sidebarItems}
+  variant="sidebar"
+  onItemClick={handleNavigation}
+/>
+```
+
+## DDSearchable Usage
+
+### Basic Searchable Dropdown
+
+```tsx
+<DDSearchable
+  items={menuItems}
+  placeholder="Search items..."
+  onItemSelect={(item) => console.log('Selected:', item)}
+/>
+```
+
+### Different Variants
+
+```tsx
+<DDSearchable variant="default" items={items} />
+<DDSearchable variant="minimal" items={items} />
+<DDSearchable variant="outlined" items={items} />
+<DDSearchable variant="filled" items={items} />
+```
+
+### Advanced Search Configuration
+
+```tsx
+<DDSearchable
+  items={items}
+  caseSensitive={true}
+  minSearchLength={2}
+  debounceMs={500}
+  searchKeys={["label", "id"]}
+  onSearchChange={(term) => console.log("Search:", term)}
+/>
+```
+
+### Allow Custom Values
+
+```tsx
+<DDSearchable
+  items={items}
+  allowCustomValue={true}
+  onCustomValue={(value) => {
+    // Handle custom value
+    console.log('Custom value:', value);
+    // You could add it to your items list
+  }}
+  placeholder="Type anything..."
+/>
+```
+
+### Controlled Component
+
+```tsx
+const [selectedItem, setSelectedItem] = useState(null);
+
+<DDSearchable
+  items={items}
+  selectedItem={selectedItem}
+  onItemSelect={setSelectedItem}
+  clearable={true}
+/>
 ```
 
 ## Showcase Examples
 
 ### Navigation Menu
 
-![Navbar Dropdown](./dist/dd-navbar-item.png)
+![Navbar Dropdown](/public/dd-navbar-item.png)
 
 ```tsx
 <DDMenu
@@ -90,7 +246,7 @@ const App = () => {
 
 ### User Profile Menu
 
-![User Profile Dropdown](./dist/user-profile-showcase.png)
+![User Profile Dropdown](/public/user-profile-showcase.png)
 
 ```tsx
 <DDMenu
@@ -118,46 +274,6 @@ const App = () => {
     </button>
   }
 />
-```
-
-### Searchable Dropdown
-
-![Searchable Dropdown](./dist/dd-searchable-option.png)
-
-```tsx
-<div className="searchable-dropdown">
-  <div className="searchable-dropdown__trigger">
-    <span>🔍</span> Search Menu Items
-  </div>
-  
-  {isOpen && (
-    <div className="searchable-dropdown__menu">
-      <div className="searchable-dropdown__search">
-        <input
-          type="text"
-          placeholder="Search items..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          autoFocus
-        />
-      </div>
-      
-      <div className="searchable-dropdown__items">
-        {filteredItems.map((item, index) => (
-          <div
-            key={item.id}
-            className={`searchable-dropdown__item ${focusedIndex === index ? 'focused' : ''}`}
-            onClick={() => handleItemClick(item)}
-            onMouseEnter={() => setFocusedIndex(index)}
-          >
-            {item.icon && <span>{item.icon}</span>}
-            <span>{item.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
 ```
 
 ## API Reference

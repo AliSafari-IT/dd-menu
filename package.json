@@ -29,6 +29,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
+    "demo": "pnpm run build && cd demo && pnpm run dev",
     "prepublishOnly": "pnpm run clean && pnpm run build",
     "predeploy": "pnpm run build && cd demo && pnpm run build && cd ..",
     "deploy": "gh-pages -d demo/dist"
