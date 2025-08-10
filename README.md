@@ -89,6 +89,18 @@ const App = () => {
 };
 ```
 
+## Theming
+
+Both `DDMenu` and `DDSearchable` support `theme="light" | "dark" | "auto"`.
+
+- **Root theme class**: the root element receives `dd-menu--{theme}` / `dd-searchable--{theme}`.
+- **Auto mode**: respects OS preference via `prefers-color-scheme`. If your app sets a theme
+  attribute on a parent (e.g. `<html data-theme="light">`), it overrides auto so the app choice wins.
+- **CSS variables**: colors are driven by CSS custom properties like `--dd-bg`, `--dd-text`, `--dd-border`, etc.
+
+If you have a global theme toggle, set `data-theme="light"` or `data-theme="dark"` on `html` or `body` so all
+menus follow your app’s theme while using `theme="auto"`.
+
 ## DDMenu Usage
 
 ### Basic Dropdown Menu
@@ -283,14 +295,18 @@ const [selectedItem, setSelectedItem] = useState(null);
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `items` | `MenuItem[]` | Required | Array of menu items |
-| `theme` | `'light' \| 'dark' \| 'auto'` | `'auto'` | Menu theme |
-| `variant` | `'default' \| 'navbar' \| 'minimal'` | `'default'` | Menu variant style |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Menu size |
-| `placement` | `'bottom' \| 'bottom-start' \| 'bottom-end' \| 'top' \| 'top-start' \| 'top-end' \| 'right' \| 'right-start' \| 'right-end' \| 'left' \| 'left-start' \| 'left-end'` | `'bottom'` | Menu placement |
-| `closeOnClick` | `boolean` | `true` | Close menu when item is clicked |
+| `theme` | `'light' \| 'dark' \| 'auto'` | `'auto'` | Theme for this menu |
+| `variant` | `'default' \| 'minimal' \| 'navbar' \| 'sidebar'` | `'default'` | Visual variant |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` | Font sizing preset |
+| `placement` | `'bottom' \| 'bottom-start' \| 'bottom-end' \| 'top' \| 'top-start' \| 'top-end' \| 'right' \| 'left'` | `'bottom-start'` | Dropdown placement |
+| `closeOnClick` | `boolean` | `true` | Close menu when an item is clicked |
+| `hoverDelay` | `number` | `150` | Delay (ms) for opening submenus on hover |
 | `trigger` | `ReactNode` | Default button | Custom trigger element |
+| `onItemClick` | `(item: MenuItem) => void` | `undefined` | Item click callback |
+| `onHoverChange` | `(isHovering: boolean) => void` | `undefined` | Hover state callback |
+| `onFontSizeChange` | `(size: DDMenuSize) => void` | `undefined` | Emits internal font size |
 | `className` | `string` | `''` | Additional CSS class names |
-| `style` | `CSSProperties` | `{}` | Inline styles for the menu |
+| `style` | `CSSProperties` | `{}` | Inline styles |
 
 ### MenuItem Type
 
@@ -306,29 +322,50 @@ type MenuItem = {
 };
 ```
 
+### DDSearchable Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `MenuItem[]` | Required | Items to search (supports nesting) |
+| `theme` | `'light' \| 'dark' \| 'auto'` | `'auto'` | Component theme |
+| `variant` | `'default' \| 'minimal' \| 'outlined' \| 'filled'` | `'default'` | Visual variant |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` | Font sizing preset |
+| `placeholder` | `string` | `'Search...'` | Input placeholder |
+| `onItemSelect` | `(item: MenuItem) => void` | `undefined` | Fired when an item is selected |
+| `onSearchChange` | `(term: string) => void` | `undefined` | Fired on input changes (debounced) |
+| `disabled` | `boolean` | `false` | Disable the control |
+| `clearable` | `boolean` | `true` | Show a clear button |
+| `maxHeight` | `number` | `300` | Max dropdown height (px) |
+| `noResultsText` | `string` | `'No results found'` | Empty state label |
+| `searchKeys` | `(keyof MenuItem)[]` | `['label','id']` | Fields used for matching |
+| `caseSensitive` | `boolean` | `false` | Case sensitivity for matching |
+| `minSearchLength` | `number` | `0` | Minimum length to start filtering |
+| `debounceMs` | `number` | `300` | Debounce time for input changes |
+| `selectedItem` | `MenuItem \| null` | `null` | Controlled selected item |
+| `allowCustomValue` | `boolean` | `false` | Allow arbitrary values |
+| `onCustomValue` | `(value: string) => void` | `undefined` | Called when a custom value is chosen |
+
 ## Styling
 
-The component includes default styling, but you can customize it by overriding CSS variables or using the provided class names:
+The components expose CSS variables you can override at any scope:
 
 ```css
 :root {
-  --dd-menu-bg: #ffffff;
-  --dd-menu-text: #333333;
-  --dd-menu-hover-bg: #f5f5f5;
-  --dd-menu-hover-text: #000000;
-  --dd-menu-disabled-text: #999999;
-  --dd-menu-border: #e0e0e0;
-  --dd-menu-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --dd-bg: #ffffff;
+  --dd-text: #111827;
+  --dd-border: #e5e7eb;
+  --dd-bg-hover: #f9fafb;
+  --dd-bg-active: #f3f4f6;
+  --dd-accent: #3b82f6;
 }
 
 [data-theme="dark"] {
-  --dd-menu-bg: #333333;
-  --dd-menu-text: #f5f5f5;
-  --dd-menu-hover-bg: #444444;
-  --dd-menu-hover-text: #ffffff;
-  --dd-menu-disabled-text: #777777;
-  --dd-menu-border: #444444;
-  --dd-menu-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --dd-bg: #18181b;
+  --dd-text: #ffffff;
+  --dd-border: #3f3f46;
+  --dd-bg-hover: #27272a;
+  --dd-bg-active: #3f3f46;
+  --dd-accent: #60a5fa;
 }
 ```
 
